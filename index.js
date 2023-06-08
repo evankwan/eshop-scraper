@@ -67,6 +67,7 @@ const main = async () => {
       let page;
       try {
         page = await browser.newPage()
+        page.setDefaultNavigationTimeout(FIFTEEN_MINUTES_IN_MS)
         const price = await fetchGamePrice(page, { url, title })
 
         const isLowerThanOrAtTargetPrice = price <= targetPrice
@@ -74,7 +75,9 @@ const main = async () => {
       } catch (error) {
         console.error(`error with ${title}`, error)
       } finally {
-        await page.close()
+        await page.close().catch(async () => {
+          page = await browser.newPage()
+        })
       }
     }
 

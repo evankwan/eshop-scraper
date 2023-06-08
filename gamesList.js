@@ -7,7 +7,7 @@ module.exports = [
   {
     title: 'Chained Echoes',
     url: 'https://www.nintendo.com/search/en-ca/#q=chained+echoes&p=1&cat=all&sort=df',
-    targetPrice: 30,
+    targetPrice: 15,
   },
   {
     title: 'Dying Light: Definitive Edition',
