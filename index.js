@@ -7,6 +7,7 @@ const transportConfig = require('./transportConfig.js')
 const games = require('./gamesList.js')
 
 const ONE_SECOND_IN_MS = 1000
+const FIVE_MINUTES_IN_MS = 300000
 const FIFTEEN_MINUTES_IN_MS = 900000
 
 const fetchGamePrice = async (page, { url, title }) => {
@@ -50,11 +51,13 @@ const handleSale = async (game, salesIdentified) => {
   const message = await createEmailMessage(game)
   const transport = createTransport(transportConfig)
   transport.sendMail(message)
-
 }
 
 const main = async () => {
-  const browser = await puppeteer.launch({ headless: 'new' })
+  const browser = await puppeteer.launch({
+    headless: 'new',
+    protocolTimeout: FIVE_MINUTES_IN_MS,
+  })
   const salesIdentified = [];
 
   let loop = 0;
